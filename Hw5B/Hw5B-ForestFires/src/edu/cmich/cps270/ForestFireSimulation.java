@@ -3,7 +3,10 @@ package edu.cmich.cps270;
 import java.util.Random;
 
 /**
+ * Simulates a forest fire.
  * 
+ * @author stjoh1sr, black9m, gupt4a
+ * Homework 5B
  */
 public class ForestFireSimulation {
 
@@ -32,7 +35,14 @@ public class ForestFireSimulation {
 	double lightningStrikeProb;
 	double spreadProb;
 	Random r;
-
+	
+	/**
+	 * Initializes the simulator.
+	 * @param N THe number of iterations.
+	 * @param forestDensity The density of the forest.
+	 * @param lightningStrikeProb The probability of a lightning strike.
+	 * @param spreadProb The probability of the fire spreading.
+	 */
 	public ForestFireSimulation(int N, double forestDensity, double lightningStrikeProb, double spreadProb) {
 		forest = new char[N][N];
 		fuel = new int[N][N];
@@ -54,7 +64,10 @@ public class ForestFireSimulation {
 		}
 
 	}
-
+	
+	/**
+	 * Prints the forest at a certain step.
+	 */
 	public void printForest() {
 		System.out.print(" ");
 		for (int i = 0; i < forest.length; i++) {
@@ -75,7 +88,10 @@ public class ForestFireSimulation {
 		System.out.println();
 
 	}
-
+	
+	/**
+	 * Computes the next step in the simulation.
+	 */
 	public void nextStep() {
 		r = new Random();
 		
@@ -141,20 +157,62 @@ public class ForestFireSimulation {
 		}
 
 	}
-
+	
+	/**
+	 * Gets the density of the forest.
+	 * @return The density of the forest.
+	 */
 	public double getForestDensity() {
-
-		return 0;
+		int numTrees = 0;
+		int forestSize = forest.length * forest[0].length;
+		
+		for(int i = 0; i < forest.length; i++) {
+			for(int j = 0; j < forest[i].length; j++) {
+				if (forest[i][j] == TREE) {
+					numTrees++;
+				}
+			}
+		}
+		
+		double forestDensity = (numTrees != 0) ? (double)numTrees / (double)forestSize : 0;
+		return forestDensity;
 	}
-
+	
+	/**
+	 * Gets size of fire.
+	 * @return Size of fire.
+	 */
 	public double getSizeOfFire() {
-
-		return 0;
+		int amountOfFire = 0;
+		int forestSize = forest.length * forest[0].length;
+		
+		for(int i = 0; i < forest.length; i++) {
+			for(int j = 0; j < forest[i].length; j++) {
+				if (forest[i][j] == FIRE) {
+					amountOfFire++;
+				}
+			}
+		}
+		
+		double sizeOfFire = (amountOfFire != 0) ? (double)amountOfFire /(double)forestSize : 0;
+		
+		return sizeOfFire;
 	}
-
+	
+	/**
+	 * Gets the fuel level.
+	 * @return The level of fuel.
+	 */
 	public int getFuelLevel() {
-
-		return 0;
+		int fuelLevel = 0;
+		
+		for(int i = 0; i < fuel.length; i++) {
+			for(int j = 0; j < fuel[i].length; j++) {
+				fuelLevel += fuel[i][j];
+			}
+		}
+		
+		return fuelLevel;
 	}
 
 }
